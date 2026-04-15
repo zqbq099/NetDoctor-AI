@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.netdoctor"
+    namespace = "com.netdoctor.ai"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.netdoctor"
+        applicationId = "com.netdoctor.ai"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

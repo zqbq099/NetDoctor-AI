@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.*
 import okhttp3.*
 import org.json.JSONObject
-import java.io.IOException
 
 class DeepSeekChatActivity : AppCompatActivity() {
 
@@ -19,7 +18,7 @@ class DeepSeekChatActivity : AppCompatActivity() {
     private lateinit var tvThinking: TextView
     private lateinit var thinkingLayout: android.view.View
 
-    private val chatAdapter = ChatAdapter()
+    private val chatAdapter = ChatMessageAdapter()
     private val mainScope = CoroutineScope(Dispatchers.Main + Job())
     private var thinkingJob: Job? = null
     
@@ -32,7 +31,7 @@ class DeepSeekChatActivity : AppCompatActivity() {
     )
 
     // استبدل هذا بمفتاح API الخاص بك
-    private val API_KEY = "sk-1cf2f5fecce54703953f450dfcad5c61"
+    private val API_KEY = "YOUR_DEEPSEEK_API_KEY_HERE"
     private val API_URL = "https://api.deepseek.com/v1/chat/completions"
 
     private val client = OkHttpClient()
@@ -45,7 +44,7 @@ class DeepSeekChatActivity : AppCompatActivity() {
         setupRecyclerView()
         setupListeners()
         
-        chatAdapter.addMessage(Message("مرحباً! أنا مساعد NetDoctor الذكي. كيف يمكنني مساعدتك اليوم؟", false))
+        chatAdapter.addMessage(ChatMessage("مرحباً! أنا مساعد NetDoctor الذكي. كيف يمكنني مساعدتك اليوم؟", false))
     }
 
     private fun initViews() {
@@ -72,7 +71,7 @@ class DeepSeekChatActivity : AppCompatActivity() {
     }
 
     private fun sendMessage(message: String) {
-        chatAdapter.addMessage(Message(message, true))
+        chatAdapter.addMessage(ChatMessage(message, true))
         etMessage.text.clear()
         
         startThinking()
@@ -82,7 +81,7 @@ class DeepSeekChatActivity : AppCompatActivity() {
                 callDeepSeekAPI(message)
             }
             stopThinking()
-            chatAdapter.addMessage(Message(reply, false))
+            chatAdapter.addMessage(ChatMessage(reply, false))
             rvChat.smoothScrollToPosition(chatAdapter.itemCount - 1)
         }
     }
@@ -107,6 +106,77 @@ class DeepSeekChatActivity : AppCompatActivity() {
     }
 
     private fun callDeepSeekAPI(userMessage: String): String {
+        return try {
+            val jsonBody = JSONObject().apply {
+                put("model", "deepseek-chat")
+                put("messages", org.json.JSONArray().apply {
+                    put(JSONObject().apply {
+                        put("role", "user")
+                        put("content", userMessage)
+                    })
+                })
+                put("stream", false)
+            }
+
+            val request = Request.Builder()
+                .url(API_URL)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer $API_KEY")
+                .post(RequestBody.create(MediaType.parse("application/json"), jsonBody.toString()))
+                .build()
+
+            val response = client.newCall(request).execute()
+            val responseBody = response.body?.string() ?: ""
+
+            if (response.isSuccessful) {
+                val jsonResponse = JSONObject(responseBody)
+                jsonResponse
+                    .getJSONArray("choices")
+                    .getJSONObject(0)
+                    .getJSONObject("message")
+                    .getString("content")
+            } else {
+                "عذراً، حدث خطأ: ${response.code}"
+            }
+        } catch (e: Exception) {
+            "خطأ في الاتصال: ${e.message}"
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mainScope.cancel()
+    }
+}
+
+data class ChatMessage(val text: String, val isUser: Boolean)
+
+class ChatMessageAdapter : RecyclerView.Adapter<ChatMessageAdapter.ViewHolder>() {
+    private val messages = mutableListOf<ChatMessage>()
+
+    fun addMessage(message: ChatMessage) {
+        messages.add(message)
+        notifyItemInserted(messages.size - 1)
+    }
+
+    override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): ViewHolder {
+        val view = android.view.LayoutInflater.from(parent.context)
+            .inflate(android.R.layout.simple_list_item_2, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val message = messages[position]
+        holder.textView.text = message.text
+        holder.textView.setTextColor(if (message.isUser) android.graphics.Color.BLUE else android.graphics.Color.BLACK)
+    }
+
+    override fun getItemCount(): Int = messages.size
+
+    inner class ViewHolder(view: android.view.View) : RecyclerView.ViewHolder(view) {
+        val textView: android.widget.TextView = view.findViewById(android.R.id.text1)
+    }
+}    private fun callDeepSeekAPI(userMessage: String): String {
         return try {
             val jsonBody = JSONObject().apply {
                 put("model", "deepseek-chat")

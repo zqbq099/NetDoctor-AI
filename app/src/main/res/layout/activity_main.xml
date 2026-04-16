@@ -135,14 +135,7 @@
                 android:textStyle="bold"
                 app:icon="@drawable/ic_ai_stars"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_gemini_help"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="💬 مساعدة Gemini"
-                android:layout_marginBottom="12dp"
-                android:textSize="16sp"
-                style="@style/Widget.Material3.Button.TextButton"/>
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_analytics"
@@ -179,11 +172,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <WebView
-        android:id="@+id/geminiWebView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

@@ -60,16 +60,20 @@ class MainActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        
-        initViews()
-        setupClickListeners()
-        checkPermissions()
-        loadAds()
-        loadInterstitialAd()
-        setupRecyclerView()
-        startDataCollection()
-        checkAndShowWeeklyRecommendation()
+        try {
+    setContentView(R.layout.activity_main)
+    initViews()
+    setupClickListeners()
+    checkPermissions()
+    loadAds()
+    loadInterstitialAd()
+    setupRecyclerView()
+    startDataCollection()
+    checkAndShowWeeklyRecommendation()
+} catch (e: Exception) {
+    Toast.makeText(this, "خطأ: ${e.message}", Toast.LENGTH_LONG).show()
+    e.printStackTrace()
+}
     }
     
     private fun initViews() {

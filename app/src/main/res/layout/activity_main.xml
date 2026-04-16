@@ -112,6 +112,17 @@
                 android:backgroundTint="#FF9800"
                 android:textSize="16sp"/>
 
+            
+            <Button
+    android:id="@+id/btn_deepseek"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="🤖 مساعد NetDoctor الذكي (AI)"
+    android:layout_marginBottom="12dp"
+    android:backgroundTint="#673AB7"
+    android:textSize="16sp"
+    android:textStyle="bold" />
+
             <Button
                 android:id="@+id/btn_gemini_help"
                 android:layout_width="match_parent"

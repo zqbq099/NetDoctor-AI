@@ -4,18 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gradient_background">
-
-    <!-- شريط علوي أنيق -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary_color"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="نت دكتور"
-        app:titleTextColor="@android:color/white"
-        app:titleCentered="true" />
+    android:background="#F5F5F5">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -36,61 +25,60 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- بطاقة معلومات الشبكة بتصميم حديث -->
-            <com.google.android.material.card.MaterialCardView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="20dp"
+                android:text="📡 نت دكتور (Net Doctor)"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:padding="16dp"
+                android:textColor="#2196F3"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 app:cardElevation="4dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardCornerRadius="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="📡 معلومات الشبكة"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary_color"
-                        android:layout_marginBottom="12dp"/>
+                    android:padding="16dp">
 
                     <TextView
                         android:id="@+id/tv_network_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="🌐 نوع الشبكة: --"
-                        android:textSize="15sp"
-                        android:padding="6dp"/>
+                        android:textSize="16sp"
+                        android:padding="4dp"/>
 
                     <TextView
                         android:id="@+id/tv_signal_strength"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="📶 قوة الإشارة: --"
-                        android:textSize="15sp"
-                        android:padding="6dp"/>
+                        android:textSize="16sp"
+                        android:padding="4dp"/>
 
                     <TextView
                         android:id="@+id/tv_ip_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="📍 عنوان IP: --"
-                        android:textSize="15sp"
-                        android:padding="6dp"/>
+                        android:textSize="16sp"
+                        android:padding="4dp"/>
 
                     <TextView
                         android:id="@+id/tv_operator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="📱 المشغل: --"
-                        android:textSize="13sp"
-                        android:padding="6dp"
+                        android:textSize="14sp"
+                        android:padding="4dp"
                         android:textColor="#666666"/>
 
                     <TextView
@@ -98,15 +86,91 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="📊 إجمالي الاستهلاك: --"
-                        android:textSize="13sp"
-                        android:padding="6dp"
+                        android:textSize="14sp"
+                        android:padding="4dp"
                         android:textColor="#4CAF50"
                         android:textStyle="bold"/>
 
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
-            <!-- الأزرار الرئيسية بتصميم متسق -->
+            <Button
+                android:id="@+id/btn_diagnose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🔍 تشخيص الشبكة"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#4CAF50"
+                android:textSize="16sp"/>
+
+            <Button
+                android:id="@+id/btn_apn_guide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📖 دليل إعدادات APN"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#FF9800"
+                android:textSize="16sp"/>
+
+            <Button
+                android:id="@+id/btn_gemini_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🤖 مساعدة Gemini (مجاني)"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#9C27B0"
+                android:textSize="16sp"/>
+
+            <Button
+                android:id="@+id/btn_analytics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📊 تحليلات الاستهلاك"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#00BCD4"
+                android:textSize="16sp"/>
+
+            <Button
+                android:id="@+id/btn_firewall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🔥 الجدار الناري (Pro)"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#F44336"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🏆 أعلى 10 تطبيقات استهلاكاً"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:textColor="#333333"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_apps"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="16dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <WebView
+        android:id="@+id/geminiWebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+</LinearLayout>            <!-- الأزرار الرئيسية بتصميم متسق -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_diagnose"
                 android:layout_width="match_parent"
